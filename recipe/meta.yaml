@@ -16,7 +16,7 @@ source:
     sha256: 57666d4af26fb7b00802d8c3fc42de5bdcf471b4300a3f5fe71f75a94de14191
 
 build:
-  number: 2
+  number: 0
 
 outputs:
   - name: {{ cxx_name }}
@@ -75,7 +75,7 @@ about:
   home: https://github.com/gazebosim/{{ repo_name }}
   license: Apache-2.0
   license_file: LICENSE
-  summary: 'Gazebo Sensors provides numerous sensor models designed to generate realistic data from simulation environments.'
+  summary: Gazebo Sensors provides numerous sensor models designed to generate realistic data from simulation environments.
 
 extra:
   feedstock-name: {{ repo_name }}
