@@ -1,11 +1,11 @@
-About gz-sensors
-================
+About gz-sensors-feedstock
+==========================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gz-sensors-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/gazebosim/gz-sensors
 
 Package license: Apache-2.0
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/gz-sensors-feedstock/blob/main/LICENSE.txt)
 
 Summary: Gazebo Sensors provides numerous sensor models designed to generate realistic data from simulation environments.
 
