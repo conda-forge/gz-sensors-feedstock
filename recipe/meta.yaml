@@ -46,7 +46,7 @@ outputs:
         - libgz-plugin2
         - libsdformat13
         - libarchive  # [osx]
-        - ogre  {{ ogre }}
+        - ogre 1.10.*
     test:
       commands:
         - test -f ${PREFIX}/include/gz/{{ component_version }}/gz/{{ component_name }}.hh  # [not win]
