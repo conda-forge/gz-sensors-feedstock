@@ -1,6 +1,6 @@
 {% set component_name = "sensors" %}
 {% set repo_name = "gz-" + component_name %}
-{% set version = "7_7.2.0" %}
+{% set version = "7_7.3.0" %}
 {% set major_version = version.split('_')[0] %}
 {% set version_package = version.split('_')[1] %}
 {% set name = repo_name + major_version %}
@@ -13,12 +13,12 @@ package:
 
 source:
   - url: https://github.com/gazebosim/{{ repo_name }}/archive/{{ repo_name }}{{ version }}.tar.gz
-    sha256: 2cc67ce3397cbeecada0eb6407d097e59be1013fc8dd5a616ed528bbab55769a
+    sha256: 91d6d72fc110f77374f211af0edc8c3d4a0fc355969aba76b789afcbd1328930
     patches:
       - 351.patch
 
 build:
-  number: 3
+  number: 0
 
 outputs:
   - name: {{ cxx_name }}
