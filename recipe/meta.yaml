@@ -38,11 +38,11 @@ outputs:
         - libprotobuf
         - libgz-math7
         - libgz-common5
-        - libgz-transport12
-        - libgz-rendering7
-        - libgz-msgs9
+        - libgz-transport13
+        - libgz-rendering8
+        - libgz-msgs10
         - libgz-plugin2
-        - libsdformat13
+        - libsdformat14
         - libarchive  # [osx]
         - ogre 1.10.*
     test:
