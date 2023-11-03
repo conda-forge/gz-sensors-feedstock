@@ -17,7 +17,7 @@ libabseil:
 libarchive:
 - '3.7'
 libprotobuf:
-- 4.24.3
+- 4.24.4
 macos_machine:
 - arm64-apple-darwin20.0.0
 target_platform:
