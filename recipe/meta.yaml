@@ -33,16 +33,16 @@ outputs:
         - cmake
         - pkg-config
       host:
-        - libgz-cmake3
+        - libgz-cmake4
         - libabseil
         - libprotobuf
-        - libgz-math7
-        - libgz-common5
-        - libgz-transport13
-        - libgz-rendering8
-        - libgz-msgs10
-        - libgz-plugin2
-        - libsdformat14
+        - libgz-math8
+        - libgz-common6
+        - libgz-transport14
+        - libgz-rendering9
+        - libgz-msgs11
+        - libgz-plugin3
+        - libsdformat15
         - libarchive  # [osx]
         - ogre 1.10.*
     test:
