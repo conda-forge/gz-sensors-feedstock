@@ -21,7 +21,7 @@ cxx_compiler_version:
 libabseil:
 - '20250127'
 libarchive:
-- '3.7'
+- '3.8'
 libprotobuf:
 - 5.29.3
 macos_machine:
