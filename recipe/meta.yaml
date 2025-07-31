@@ -17,6 +17,7 @@ source:
 build:
   number: 0
 
+
 outputs:
   - name: {{ cxx_name }}
     script: build_cxx.sh  # [unix]
