@@ -1,0 +1,123 @@
+schema_version: 1
+
+context:
+  component_name: sensors
+  repo_name: ${{ "gz-" + component_name }}
+  version: 10.0.0
+  major_version: "10"
+  name: ${{ repo_name }}
+  component_version: ${{ component_name + major_version }}
+  cxx_name: ${{ "lib" + name }}
+
+recipe:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  - url: https://github.com/gazebosim/${{ repo_name }}/archive/${{ repo_name }}${{ major_version }}_${{ version }}.tar.gz
+    sha256: 9841854013d61114f7a8d20b918df651404bf5a28d52dd0b4fc4caba5dc8aa08
+
+build:
+  number: 0
+
+outputs:
+  - package:
+      name: ${{ cxx_name }}
+    build:
+      script:
+        - if: unix
+          then: build_cxx.sh
+        - if: win
+          then: bld_cxx.bat
+    requirements:
+      build:
+        - ${{ compiler('cxx') }}
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - ninja
+        - cmake
+        - pkg-config
+        - if: build_platform != target_platform
+          then:
+            - python ${{ python_min }}.*
+            - cross-python_${{ target_platform }}
+      host:
+        - libgz-cmake4
+        - libabseil
+        - libprotobuf
+        - libgz-math9
+        - libgz-common7
+        - libgz-transport15
+        - libgz-rendering10
+        - libgz-msgs12
+        - libgz-plugin3
+        - libsdformat16
+        - if: osx
+          then:
+            - libarchive
+        - ogre 1.10.*
+        - python ${{ python_min }}.*
+      run_exports:
+        - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
+      ignore_run_exports:
+        by_name:
+          - python
+          - python_abi
+        from_package:
+          - python
+          - if: build_platform != target_platform
+            then: cross-python_${{ target_platform }}
+    tests:
+      - script:
+          - if: not win
+            then:
+              - test -f ${PREFIX}/include/gz/${{ component_version }}/gz/${{ component_name }}.hh
+              - test -f ${PREFIX}/lib/lib${{ name }}${SHLIB_EXT}
+              - test -f ${PREFIX}/lib/cmake/${{ name }}/${{ name }}-config.cmake
+          - if: win
+            then:
+              - if not exist %PREFIX%\\Library\\include\\gz\\${{ component_version }}\\gz\\${{ component_name }}.hh exit 1
+              - if not exist %PREFIX%\\Library\\lib\\${{ name }}.lib exit 1
+              - if not exist %PREFIX%\\Library\\bin\\${{ name }}.dll exit 1
+              - if not exist %PREFIX%\\Library\\lib\\cmake\\${{ name }}\\${{ name }}-config.cmake exit 1
+          - cmake-package-check gz-${{ component_name }}${{ major_version }}
+        requirements:
+          run:
+            - cmake-package-check
+            - ${{ compiler('c') }}
+            - ${{ compiler('cxx') }}
+
+  - package:
+      name: ${{ name }}
+    requirements:
+      run:
+        - ${{ pin_subpackage(cxx_name, exact=True) }}
+      run_exports:
+        - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
+    tests:
+      - script:
+          - if: not win
+            then:
+              - test -f ${PREFIX}/include/gz/${{ component_version }}/gz/${{ component_name }}.hh
+              - test -f ${PREFIX}/lib/lib${{ name }}${SHLIB_EXT}
+              - test -f ${PREFIX}/lib/cmake/${{ name }}/${{ name }}-config.cmake
+          - if: win
+            then:
+              - if not exist %PREFIX%\\Library\\include\\gz\\${{ component_version }}\\gz\\${{ component_name }}.hh exit 1
+              - if not exist %PREFIX%\\Library\\lib\\${{ name }}.lib exit 1
+              - if not exist %PREFIX%\\Library\\bin\\${{ name }}.dll exit 1
+              - if not exist %PREFIX%\\Library\\lib\\cmake\\${{ name }}\\${{ name }}-config.cmake exit 1
+
+about:
+  homepage: https://github.com/gazebosim/${{ repo_name }}
+  license: Apache-2.0
+  license_file: LICENSE
+  summary: Gazebo Sensors provides numerous sensor models designed to generate realistic data from simulation environments.
+
+extra:
+  feedstock-name: ${{ repo_name }}
+  recipe-maintainers:
+    - wolfv
+    - traversaro
+    - Tobias-Fischer
+    - j-rivero
