@@ -12,15 +12,7 @@ libabseil:
 - '20250512'
 libprotobuf:
 - 6.31.1
-pin_run_as_build:
-  python:
-    min_pin: x.x
-    max_pin: x.x
-python:
-- 3.10.* *_cpython
-- 3.11.* *_cpython
-- 3.12.* *_cpython
-- 3.13.* *_cp313
-- 3.9.* *_cpython
+python_min:
+- '3.10'
 target_platform:
 - win-64
