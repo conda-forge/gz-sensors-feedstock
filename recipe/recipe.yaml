@@ -37,50 +37,32 @@ outputs:
         - ninja
         - cmake
         - pkg-config
-        - if: build_platform != target_platform
-          then:
-            - python ${{ python_min }}.*
-            - cross-python_${{ target_platform }}
       host:
-        - libgz-cmake4
+        - libgz-cmake
         - libabseil
         - libprotobuf
-        - libgz-math9
-        - libgz-common7
-        - libgz-transport15
-        - libgz-rendering10
-        - libgz-msgs12
-        - libgz-plugin3
-        - libsdformat16
+        - libgz-math
+        - libgz-common
+        - libgz-transport
+        - libgz-rendering
+        - libgz-msgs
+        - libgz-plugin
+        - libsdformat
         - if: osx
           then:
             - libarchive
         - ogre 1.10.*
-        - python ${{ python_min }}.*
       run_exports:
         - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
-      ignore_run_exports:
-        by_name:
-          - python
-          - python_abi
-        from_package:
-          - python
-          - if: build_platform != target_platform
-            then: cross-python_${{ target_platform }}
+
     tests:
+      - package_contents:
+          include:
+            - gz/${{ component_version }}/gz/${{ component_name }}.hh
+          lib:
+            - gz-${{ component_name }}
       - script:
-          - if: not win
-            then:
-              - test -f ${PREFIX}/include/gz/${{ component_version }}/gz/${{ component_name }}.hh
-              - test -f ${PREFIX}/lib/lib${{ name }}${SHLIB_EXT}
-              - test -f ${PREFIX}/lib/cmake/${{ name }}/${{ name }}-config.cmake
-          - if: win
-            then:
-              - if not exist %PREFIX%\\Library\\include\\gz\\${{ component_version }}\\gz\\${{ component_name }}.hh exit 1
-              - if not exist %PREFIX%\\Library\\lib\\${{ name }}.lib exit 1
-              - if not exist %PREFIX%\\Library\\bin\\${{ name }}.dll exit 1
-              - if not exist %PREFIX%\\Library\\lib\\cmake\\${{ name }}\\${{ name }}-config.cmake exit 1
-          - cmake-package-check gz-${{ component_name }}${{ major_version }}
+          - cmake-package-check gz-${{ component_name }} --targets gz-${{ component_name }}::gz-${{ component_name }}
         requirements:
           run:
             - cmake-package-check
@@ -96,17 +78,12 @@ outputs:
         - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
     tests:
       - script:
-          - if: not win
-            then:
-              - test -f ${PREFIX}/include/gz/${{ component_version }}/gz/${{ component_name }}.hh
-              - test -f ${PREFIX}/lib/lib${{ name }}${SHLIB_EXT}
-              - test -f ${PREFIX}/lib/cmake/${{ name }}/${{ name }}-config.cmake
-          - if: win
-            then:
-              - if not exist %PREFIX%\\Library\\include\\gz\\${{ component_version }}\\gz\\${{ component_name }}.hh exit 1
-              - if not exist %PREFIX%\\Library\\lib\\${{ name }}.lib exit 1
-              - if not exist %PREFIX%\\Library\\bin\\${{ name }}.dll exit 1
-              - if not exist %PREFIX%\\Library\\lib\\cmake\\${{ name }}\\${{ name }}-config.cmake exit 1
+          - cmake-package-check gz-${{ component_name }} --targets gz-${{ component_name }}::gz-${{ component_name }}
+        requirements:
+          run:
+            - cmake-package-check
+            - ${{ compiler('c') }}
+            - ${{ compiler('cxx') }}
 
 about:
   homepage: https://github.com/gazebosim/${{ repo_name }}
