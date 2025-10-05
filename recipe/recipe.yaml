@@ -1,0 +1,153 @@
+schema_version: 1
+
+context:
+  component_name: sensors
+  repo_name: ${{ "gz-" + component_name }}
+  version: 9.2.0
+  major_version: "9"
+  name: ${{ repo_name + major_version }}
+  component_version: ${{ component_name + major_version }}
+  cxx_name: ${{ "lib" + name }}
+
+recipe:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  - url: https://github.com/gazebosim/${{ repo_name }}/archive/${{ repo_name }}${{ major_version }}_${{ version }}.tar.gz
+    sha256: 455d20d320ba741de0e38da320408afcdfe2f109e00de911b4cce200913cefaa
+
+build:
+  number: 1
+
+outputs:
+  - package:
+      name: ${{ cxx_name }}
+    build:
+      script:
+        - if: unix
+          then: build_cxx.sh
+        - if: win
+          then: bld_cxx.bat
+    requirements:
+      build:
+        - ${{ compiler('cxx') }}
+        - ${{ compiler('c') }}
+        - ${{ stdlib('c') }}
+        - ninja
+        - cmake
+        - pkg-config
+        - if: build_platform != target_platform
+          then:
+            - python ${{ python_min }}.*
+            - cross-python_${{ target_platform }}
+      host:
+        - libgz-cmake4
+        - libabseil
+        - libprotobuf
+        - libgz-math8
+        - libgz-common6
+        - libgz-transport14
+        - libgz-rendering9
+        - libgz-msgs11
+        - libgz-plugin3
+        - libsdformat15
+        - if: osx
+          then:
+            - libarchive
+        - ogre 1.10.*
+        - python ${{ python_min }}.*
+      run_exports:
+        - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
+      ignore_run_exports:
+        by_name:
+          - python
+          - python_abi
+        from_package:
+          - python
+          - if: build_platform != target_platform
+            then: cross-python_${{ target_platform }}
+    tests:
+      - script:
+          - if: not win
+            then:
+              - test -f ${PREFIX}/include/gz/${{ component_version }}/gz/${{ component_name }}.hh
+              - test -f ${PREFIX}/lib/lib${{ name }}${SHLIB_EXT}
+              - test -f ${PREFIX}/lib/cmake/${{ name }}/${{ name }}-config.cmake
+          - if: win
+            then:
+              - if not exist %PREFIX%\\Library\\include\\gz\\${{ component_version }}\\gz\\${{ component_name }}.hh exit 1
+              - if not exist %PREFIX%\\Library\\lib\\${{ name }}.lib exit 1
+              - if not exist %PREFIX%\\Library\\bin\\${{ name }}.dll exit 1
+              - if not exist %PREFIX%\\Library\\lib\\cmake\\${{ name }}\\${{ name }}-config.cmake exit 1
+
+  - package:
+      name: ${{ name }}
+    requirements:
+      run:
+        - ${{ pin_subpackage(cxx_name, exact=True) }}
+      run_exports:
+        - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
+    tests:
+      - script:
+          - if: not win
+            then:
+              - test -f ${PREFIX}/include/gz/${{ component_version }}/gz/${{ component_name }}.hh
+              - test -f ${PREFIX}/lib/lib${{ name }}${SHLIB_EXT}
+              - test -f ${PREFIX}/lib/cmake/${{ name }}/${{ name }}-config.cmake
+          - if: win
+            then:
+              - if not exist %PREFIX%\\Library\\include\\gz\\${{ component_version }}\\gz\\${{ component_name }}.hh exit 1
+              - if not exist %PREFIX%\\Library\\lib\\${{ name }}.lib exit 1
+              - if not exist %PREFIX%\\Library\\bin\\${{ name }}.dll exit 1
+              - if not exist %PREFIX%\\Library\\lib\\cmake\\${{ name }}\\${{ name }}-config.cmake exit 1
+
+  # Versionless dummy packages, see https://github.com/conda-forge/gz-sim-feedstock/issues/102
+  - package:
+      name: libgz-${{ component_name }}
+    requirements:
+      run:
+        - ${{ pin_subpackage(cxx_name, exact=true) }}
+      run_exports:
+        - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
+        - ${{ pin_subpackage('libgz-sensors', upper_bound='x') }}
+    tests:
+      - script:
+          - cmake-package-check gz-${{ component_name }}${{ major_version }}
+        requirements:
+          run:
+            - cmake-package-check
+            - ${{ compiler('c') }}
+            - ${{ compiler('cxx') }}
+
+  - package:
+      name: gz-${{ component_name }}
+    requirements:
+      run:
+        - ${{ pin_subpackage(name, exact=true) }}
+        - ${{ pin_subpackage('libgz-sensors', exact=true) }}
+      run_exports:
+        - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
+        - ${{ pin_subpackage('libgz-sensors', upper_bound='x') }}
+    tests:
+      - script:
+          - cmake-package-check gz-${{ component_name }}${{ major_version }}
+        requirements:
+          run:
+            - cmake-package-check
+            - ${{ compiler('c') }}
+            - ${{ compiler('cxx') }}
+
+about:
+  homepage: https://github.com/gazebosim/${{ repo_name }}
+  license: Apache-2.0
+  license_file: LICENSE
+  summary: Gazebo Sensors provides numerous sensor models designed to generate realistic data from simulation environments.
+
+extra:
+  feedstock-name: ${{ repo_name }}
+  recipe-maintainers:
+    - wolfv
+    - traversaro
+    - Tobias-Fischer
+    - j-rivero
