@@ -10,9 +10,23 @@ cxx_compiler:
 - vs2022
 libabseil:
 - '20250512'
+libgz_cmake:
+- '5'
+libgz_common:
+- '7'
+libgz_math:
+- '9'
+libgz_msgs:
+- '12'
+libgz_plugin:
+- '4'
+libgz_rendering:
+- '10'
+libgz_transport:
+- '15'
 libprotobuf:
 - 6.31.1
-python_min:
-- '3.10'
+libsdformat:
+- '16'
 target_platform:
 - win-64
