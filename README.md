@@ -81,8 +81,8 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-gz--sensors9-green.svg)](https://anaconda.org/conda-forge/gz-sensors9) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/gz-sensors9.svg)](https://anaconda.org/conda-forge/gz-sensors9) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/gz-sensors9.svg)](https://anaconda.org/conda-forge/gz-sensors9) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/gz-sensors9.svg)](https://anaconda.org/conda-forge/gz-sensors9) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libgz--sensors9-green.svg)](https://anaconda.org/conda-forge/libgz-sensors9) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libgz-sensors9.svg)](https://anaconda.org/conda-forge/libgz-sensors9) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libgz-sensors9.svg)](https://anaconda.org/conda-forge/libgz-sensors9) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libgz-sensors9.svg)](https://anaconda.org/conda-forge/libgz-sensors9) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-gz--sensors-green.svg)](https://anaconda.org/conda-forge/gz-sensors) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/gz-sensors.svg)](https://anaconda.org/conda-forge/gz-sensors) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/gz-sensors.svg)](https://anaconda.org/conda-forge/gz-sensors) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/gz-sensors.svg)](https://anaconda.org/conda-forge/gz-sensors) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libgz--sensors-green.svg)](https://anaconda.org/conda-forge/libgz-sensors) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libgz-sensors.svg)](https://anaconda.org/conda-forge/libgz-sensors) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libgz-sensors.svg)](https://anaconda.org/conda-forge/libgz-sensors) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libgz-sensors.svg)](https://anaconda.org/conda-forge/libgz-sensors) |
 
 Installing gz-sensors
 =====================
@@ -94,41 +94,41 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `gz-sensors9, libgz-sensors9` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `gz-sensors, libgz-sensors` can be installed with `conda`:
 
 ```
-conda install gz-sensors9 libgz-sensors9
-```
-
-or with `mamba`:
-
-```
-mamba install gz-sensors9 libgz-sensors9
-```
-
-It is possible to list all of the versions of `gz-sensors9` available on your platform with `conda`:
-
-```
-conda search gz-sensors9 --channel conda-forge
+conda install gz-sensors libgz-sensors
 ```
 
 or with `mamba`:
 
 ```
-mamba search gz-sensors9 --channel conda-forge
+mamba install gz-sensors libgz-sensors
+```
+
+It is possible to list all of the versions of `gz-sensors` available on your platform with `conda`:
+
+```
+conda search gz-sensors --channel conda-forge
+```
+
+or with `mamba`:
+
+```
+mamba search gz-sensors --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search gz-sensors9 --channel conda-forge
+mamba repoquery search gz-sensors --channel conda-forge
 
-# List packages depending on `gz-sensors9`:
-mamba repoquery whoneeds gz-sensors9 --channel conda-forge
+# List packages depending on `gz-sensors`:
+mamba repoquery whoneeds gz-sensors --channel conda-forge
 
-# List dependencies of `gz-sensors9`:
-mamba repoquery depends gz-sensors9 --channel conda-forge
+# List dependencies of `gz-sensors`:
+mamba repoquery depends gz-sensors --channel conda-forge
 ```
 
 
@@ -153,12 +153,12 @@ it is possible to build and upload installable packages to the
 [conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.
 
-To manage the continuous integration and simplify feedstock maintenance
+To manage the continuous integration and simplify feedstock maintenance,
 [conda-smithy](https://github.com/conda-forge/conda-smithy) has been developed.
 Using the ``conda-forge.yml`` within this repository, it is possible to re-render all of
 this feedstock's supporting files (e.g. the CI configuration files) with ``conda smithy rerender``.
 
-For more information please check the [conda-forge documentation](https://conda-forge.org/docs/).
+For more information, please check the [conda-forge documentation](https://conda-forge.org/docs/).
 
 Terminology
 ===========
@@ -185,7 +185,7 @@ merged, the recipe will be re-built and uploaded automatically to the
 everybody to install and use from the `conda-forge` channel.
 Note that all branches in the conda-forge/gz-sensors-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
-on branches in forks and branches in the main repository should only be used to
+on branches in forks, and branches in the main repository should only be used to
 build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
