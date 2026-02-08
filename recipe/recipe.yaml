@@ -18,7 +18,7 @@ source:
     sha256: ce84249813e111bc192f341cb04292ea9cdf52fddb274516f387cc775ac783cb
 
 build:
-  number: 0
+  number: 1
 
 outputs:
   - package:
@@ -61,13 +61,11 @@ outputs:
               - test -f ${PREFIX}/include/gz/${{ component_version }}/gz/${{ component_name }}.hh
               - test -f ${PREFIX}/lib/lib${{ name }}${SHLIB_EXT}
               - test -f ${PREFIX}/lib/cmake/${{ name }}/${{ name }}-config.cmake
-          - if: win
-            then:
+            else:
               - if not exist %PREFIX%\\Library\\include\\gz\\${{ component_version }}\\gz\\${{ component_name }}.hh exit 1
               - if not exist %PREFIX%\\Library\\lib\\${{ name }}.lib exit 1
               - if not exist %PREFIX%\\Library\\bin\\${{ name }}.dll exit 1
               - if not exist %PREFIX%\\Library\\lib\\cmake\\${{ name }}\\${{ name }}-config.cmake exit 1
-
   - package:
       name: ${{ name }}
     requirements:
@@ -82,14 +80,11 @@ outputs:
               - test -f ${PREFIX}/include/gz/${{ component_version }}/gz/${{ component_name }}.hh
               - test -f ${PREFIX}/lib/lib${{ name }}${SHLIB_EXT}
               - test -f ${PREFIX}/lib/cmake/${{ name }}/${{ name }}-config.cmake
-          - if: win
-            then:
+            else:
               - if not exist %PREFIX%\\Library\\include\\gz\\${{ component_version }}\\gz\\${{ component_name }}.hh exit 1
               - if not exist %PREFIX%\\Library\\lib\\${{ name }}.lib exit 1
               - if not exist %PREFIX%\\Library\\bin\\${{ name }}.dll exit 1
               - if not exist %PREFIX%\\Library\\lib\\cmake\\${{ name }}\\${{ name }}-config.cmake exit 1
-
-  # Versionless dummy packages, see https://github.com/conda-forge/gz-sim-feedstock/issues/102
   - package:
       name: libgz-${{ component_name }}
     requirements:
