@@ -19,7 +19,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '19'
 libabseil:
-- '20250512'
+- '20260107'
 libarchive:
 - '3.8'
 libgz_cmake:
@@ -37,7 +37,7 @@ libgz_rendering:
 libgz_transport:
 - '15'
 libprotobuf:
-- 6.31.1
+- 6.33.5
 libsdformat:
 - '16'
 macos_machine:
