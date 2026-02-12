@@ -63,6 +63,7 @@ outputs:
             - libopengl-devel
             - libegl-devel
             - libgles-devel
+            - libglvnd-devel
       run_exports:
         - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
 
