@@ -38,9 +38,6 @@ outputs:
         - cmake
         - pkg-config
       host:
-        - if: linux
-          then:
-            - libgl-devel
         - libgz-cmake
         - libabseil
         - libprotobuf
@@ -61,6 +58,7 @@ outputs:
         # as run dependency, even if the proper solution may be to have dedicated *-devel packages, that itself should depend on libgl-devel (only on Linux)
         - if: linux
           then:
+            - libopengl-devel
             - libgl-devel
       run_exports:
         - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
