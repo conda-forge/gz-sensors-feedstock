@@ -58,8 +58,10 @@ outputs:
         # as run dependency, even if the proper solution may be to have dedicated *-devel packages, that itself should depend on libgl-devel (only on Linux)
         - if: linux
           then:
+            - libglu
+            - libglx-devel
             - libopengl-devel
-            - libgl-devel
+            - libegl-devel
       run_exports:
         - ${{ pin_subpackage(cxx_name, upper_bound='x') }}
 
