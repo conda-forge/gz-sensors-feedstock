@@ -38,6 +38,7 @@ outputs:
         - cmake
         - pkg-config
       host:
+        - libgl-devel
         - libgz-cmake
         - libabseil
         - libprotobuf
