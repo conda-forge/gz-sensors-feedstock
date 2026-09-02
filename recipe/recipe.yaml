@@ -3,7 +3,7 @@ schema_version: 1
 context:
   component_name: sensors
   repo_name: ${{ "gz-" ~ component_name }}
-  version: "10.1.0"
+  version: "10.1.1"
   major_version: "10"
   name: ${{ repo_name }}
   component_version: ${{ component_name ~ major_version }}
@@ -15,7 +15,7 @@ recipe:
 
 source:
   - url: https://github.com/gazebosim/${{ repo_name }}/archive/${{ repo_name }}${{ major_version }}_${{ version }}.tar.gz
-    sha256: e95ff8de7d0a60afe875aee76d6ead12d863c941125ffbace72c3da27dc932ae
+    sha256: 52a74fbac457a3fc2a8bd90fc5737632fb4d6fbe6f65987cb95150dbde02223b
 
 build:
   number: 0
